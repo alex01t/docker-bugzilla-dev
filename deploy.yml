@@ -1,0 +1,16 @@
+
+- hosts: [zilla]
+  vars:
+    app_user: "www-data"
+    extentions_folder: "/var/www/bugzilla/extensions/"
+  tasks:
+    - name: Install Zilla extentions
+      become: true
+      become_user: "{{ app_user }}"
+      block:
+        - copy:
+            src: ./my-extentions/P4
+            dest: "{{ extentions_folder }}"
+            mode: preserve
+
+

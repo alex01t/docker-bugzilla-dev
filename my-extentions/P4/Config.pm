@@ -5,17 +5,18 @@
 # This Source Code Form is "Incompatible With Secondary Licenses", as
 # defined by the Mozilla Public License, v. 2.0.
 
-version: '2'
-services:
-  bugzilla:
-    container_name: bugzilla-dev
-    #image: bugzilla/bugzilla-dev
-    build: 
-      context: ./
-    network_mode: "host"
-    ports:
-      - "80:80"
-      - "5900:5900"
-    volumes:
-      - ./my-extentions/P4:/var/www/html/bugzilla/extensions/P4
+package Bugzilla::Extension::P4;
 
+use 5.14.0;
+use strict;
+use warnings;
+
+use constant NAME => 'P4';
+
+use constant REQUIRED_MODULES => [
+];
+
+use constant OPTIONAL_MODULES => [
+];
+
+__PACKAGE__->NAME;
