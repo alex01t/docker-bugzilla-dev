@@ -28,10 +28,8 @@ sub enabled {
     return 1;
 };
 
-
 sub _replace_p4_change {
     my $args = shift;
-    print($args);
     my $title = $args->{matches}->[0];
     my $id = $args->{matches}->[1];
     $title = html_quote($title);
@@ -58,6 +56,14 @@ sub _replace_phabracator_diff2 {
     $id = html_quote($id);
     return qq{<a href="http://phabricator.azulsystems.com/$id">$id</a>};
 };
+sub _replace_more_bug {
+    my $args = shift;
+    my $title = $args->{matches}->[0];
+    my $id = $args->{matches}->[1];
+    $title = html_quote($title);
+    $id = html_quote($id);
+    return qq{<a href="show_bug.cgi?id=$id">$title$id</a>};
+};
 
 sub bug_format_comment {
     my ($self, $args) = @_;
@@ -65,13 +71,15 @@ sub bug_format_comment {
     
     my $p4_change_match        = qr/\b(Change[-: ]|CL|CR|CL#|CR#)(\d+)\b/i;
     my $p4_revert_change_match = qr/\b(revert\s*|reverts\s*|reverting\s*|reverted\s*|revert of\s*)(\d+)\b/i;
-    
     my $phabricator_diff_match1 = qr/\bhttp:\/\/phabricator.azulsystems.com\/(D\d+)\b/;
     my $phabricator_diff_match2 = qr/\b(D\d+)\b/;
+    my $more_bug_match = qr/\b(bug[: -]*)(\d+)\b/i;
+    
     push(@$regexes, { match => $p4_change_match,        replace => \&_replace_p4_change });
     push(@$regexes, { match => $p4_revert_change_match, replace => \&_replace_p4_revert_change });
     push(@$regexes, { match => $phabricator_diff_match1, replace => \&_replace_phabracator_diff1 });
     push(@$regexes, { match => $phabricator_diff_match2, replace => \&_replace_phabracator_diff2 });
+    push(@$regexes, { match => $more_bug_match, replace => \&_replace_more_bug });
 }
 
 __PACKAGE__->NAME;
