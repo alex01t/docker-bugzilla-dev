@@ -52,9 +52,10 @@ sub _replace_phabracator_diff1 {
 };
 sub _replace_phabracator_diff2 {
     my $args = shift;
-    my $id = $args->{matches}->[0];
+    my $prefix = $args->{matches}->[0];
+    my $id = $args->{matches}->[1];
     $id = html_quote($id);
-    return qq{<a href="http://phabricator.azulsystems.com/$id">$id</a>};
+    return qq{$prefix<a href="http://phabricator.azulsystems.com/$id">$id</a>};
 };
 sub _replace_more_bug {
     my $args = shift;
@@ -72,7 +73,7 @@ sub bug_format_comment {
     my $p4_change_match        = qr/\b(Change[-: ]|CL|CR|CL#|CR#)(\d+)\b/i;
     my $p4_revert_change_match = qr/\b(revert\s*|reverts\s*|reverting\s*|reverted\s*|revert of\s*)(\d+)\b/i;
     my $phabricator_diff_match1 = qr/\bhttp:\/\/phabricator.azulsystems.com\/(D\d+)\b/;
-    my $phabricator_diff_match2 = qr/\b(D\d+)\b/;
+    my $phabricator_diff_match2 = qr/(^|[\s,:]+)(D\d+)\b/;
     my $more_bug_match = qr/\b(bug[: -]*)(\d+)\b/i;
     
     push(@$regexes, { match => $p4_change_match,        replace => \&_replace_p4_change });
