@@ -70,8 +70,8 @@ sub bug_format_comment {
     my ($self, $args) = @_;
     my $regexes = $args->{'regexes'};
     
-    my $p4_change_match        = qr/\b(Change[-: ]|CL|CR|CL#|CR#)(\d+)\b/i;
-    my $p4_revert_change_match = qr/\b(revert\s*|reverts\s*|reverting\s*|reverted\s*|revert of\s*)(\d+)\b/i;
+    my $p4_change_match        = qr/\b(Change[-: ]|CL\s*|CR\s*|CL\s*#\s*|CR\s*#\s*)(\d+)\b/i;
+    my $p4_revert_change_match = qr/\b(revert\s*r*|reverts\s*r*|reverting\s*r*|reverted\s*r*|revert of\s*r*)(\d+)\b/i;
     my $phabricator_diff_match1 = qr/\bhttp:\/\/phabricator.azulsystems.com\/(D\d+)\b/;
     my $phabricator_diff_match2 = qr/(^|[\s,:]+)(D\d+)\b/;
     my $more_bug_match = qr/\b(bug[: -]*)(\d+)\b/i;
