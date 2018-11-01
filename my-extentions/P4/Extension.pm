@@ -34,7 +34,7 @@ sub _replace_p4_change {
     my $id = $args->{matches}->[1];
     $title = html_quote($title);
     $id = html_quote($id);
-    return qq{ <a href="http://release.azulsystems.com/cgi-bin/changelist?cl=$id">$title$id</a>};
+    return qq{<a href="http://release.azulsystems.com/cgi-bin/changelist?cl=$id">$title$id</a>};
 };
 sub _replace_p4_revert_change {
     my $args = shift;
@@ -63,13 +63,13 @@ sub _replace_more_bug {
     my $id = $args->{matches}->[1];
     $title = html_quote($title);
     $id = html_quote($id);
-    return qq{ <a href="show_bug.cgi?id=$id">$title$id</a>};
+    return qq{<a href="show_bug.cgi?id=$id">$title$id</a>};
 };
 sub _replace_p4_difflabels {
     my $args = shift;
     my $title = html_quote($args->{matches}->[0]);
     my $id = html_quote($args->{matches}->[3]);
-    return qq{ <a href="http://release.azulsystems.com/cgi-bin/difflabels2?prod=ZVM&branch=dev&lab=zvm-dev-$id">$title$id</a>};
+    return qq{<a href="http://release.azulsystems.com/cgi-bin/difflabels2?prod=ZVM&branch=dev&lab=zvm-dev-$id">$title$id</a>};
 };
 
 sub bug_format_comment {
